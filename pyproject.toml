@@ -5,4 +5,4 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "uml"
 version = "0.0.1"
-dependencies = ["Pillow", "typing_extensions"]
+dependencies = ["fonttools", "Pillow", "typing_extensions"]
