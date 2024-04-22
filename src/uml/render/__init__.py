@@ -1,5 +1,6 @@
 # flake8: noqa: F401
-from .connector import Connector, Elbow, Line
+from .bounding_box import BoundingBox
+from .connector import Arc, Connector, Elbow, Line
 from .constraint import (
     Above,
     Below,
@@ -12,5 +13,6 @@ from .constraint import (
 )
 from .diagram import Diagram
 from .font import FontBook
+from .point import Point
 from .render_output import RenderOutput
 from .renderable import Renderable

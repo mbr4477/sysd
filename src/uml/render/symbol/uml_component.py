@@ -1,7 +1,8 @@
 from ...render import FontBook, Renderable, RenderOutput
+from ..rect import Rect
 
 
-class UMLComponent(Renderable):
+class UMLComponent(Renderable, Rect):
     _SVG = """
     <svg
         x="{x}" 
