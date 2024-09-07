@@ -1,6 +1,6 @@
 # flake8: noqa: F401
 from .bounding_box import BoundingBox
-from .connector import Arc, Connector, Elbow, Line
+from .connector import Connector, Elbow, Line
 from .constraint import (
     Above,
     Below,

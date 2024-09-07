@@ -1,4 +1,4 @@
-from .connector import Arc, Elbow, Line
+from .connector import Elbow, Line
 from .constraint import Below, CenterHorizontal, CenterVertical, RightOf
 from .diagram import Diagram
 from .point import Point
@@ -48,19 +48,22 @@ def align_middle(*nodes: Renderable):
         CenterVertical.new(nodes[i + 1], nodes[i])
 
 
-def line(source: Point, dest: Point):
+def line(
+    source: Point, dest: Point, start_arrow: bool = False, end_arrow: bool = False
+):
     global sysd_diagram
-    sysd_diagram.add(Line(source, dest))
+    sysd_diagram.add(Line(source, dest, start_arrow, end_arrow))
 
 
-def elbow(source: Point, dest: Point, flip: bool = False):
+def elbow(
+    source: Point,
+    dest: Point,
+    start_arrow: bool = False,
+    end_arrow: bool = False,
+    flip: bool = False,
+):
     global sysd_diagram
-    sysd_diagram.add(Elbow(source, dest, flip))
-
-
-def arc(source: Point, dest: Point, curvature: float = 0.5, clockwise: bool = False):
-    global sysd_diagram
-    sysd_diagram.add(Arc(source, dest, curvature=curvature, clockwise=clockwise))
+    sysd_diagram.add(Elbow(source, dest, start_arrow, end_arrow, flip))
 
 
 def endd():

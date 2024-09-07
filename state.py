@@ -4,6 +4,7 @@ import svg
 
 from sysd.connectable import Connectable
 from sysd.dsl import diagram
+from sysd.point import Point
 from sysd.symbol import Box, Diamond
 
 logging.basicConfig()
@@ -41,6 +42,17 @@ class InitialState(Connectable):
 
 
 class FinalState(Connectable):
+    local_ports = [
+        Point(0.5, 0.0),
+        Point(0.8535, 0.1464),
+        Point(1.0, 0.5),
+        Point(0.8535, 0.8535),
+        Point(0.5, 1.0),
+        Point(0.1464, 0.8535),
+        Point(0.0, 0.5),
+        Point(0.1464, 0.1464),
+    ]
+
     def __init__(self):
         super().__init__()
         self._radius = 5
