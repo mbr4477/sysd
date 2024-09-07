@@ -3,6 +3,6 @@ requires = ["setuptools>=61.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "uml"
+name = "sysd"
 version = "0.0.1"
 dependencies = ["fonttools", "Pillow", "typing_extensions"]
