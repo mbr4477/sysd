@@ -1,18 +1,7 @@
-from ..render_output import RenderOutput
-from ._connector import Connector
+from ..point import Point
+from ._polyline import PolyLine
 
 
-class Line(Connector):
-    _SVG = """
-    <svg>
-        <path d="M{src_x},{src_y}L{dst_x},{dst_y}" stroke="black" />
-    </svg>
-    """
-
-    def render(self) -> RenderOutput:
-        return Line._SVG.format(
-            src_x=self._source.x,
-            src_y=self._source.y,
-            dst_x=self._dest.x,
-            dst_y=self._dest.y,
-        )
+class Line(PolyLine):
+    def __init__(self, source: Point, dest: Point):
+        super().__init__(source, dest)

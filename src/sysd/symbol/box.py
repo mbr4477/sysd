@@ -1,9 +1,10 @@
 from typing import List
 
+import svg
+
 from ..bounding_box import BoundingBox
 from ..connectable import Connectable
 from ..font import FontBook
-from ..render_output import RenderOutput
 from ..size import Size
 from ..text_align import Align
 
@@ -52,7 +53,7 @@ class Box(Connectable):
         self._font_family = value
         self._update_layout()
 
-    def render(self) -> RenderOutput:
+    def render(self) -> svg.SVG:
         def align_center(line_bbox: BoundingBox) -> float:
             return 0.5 * (self.bounds.size.width - line_bbox.size.width)
 
@@ -65,33 +66,34 @@ class Box(Connectable):
                 - line_bbox.size.width
             )
 
-        text_spans = "".join(
-            [
-                "<tspan"
-                + f' x="{align_center(bbox)}"'
-                + f' y="{0.5 * (self.bounds.size.height - self.text_size.height) + i*self._line_height}">'
-                + x
-                + "</tspan>"
-                for i, (x, bbox) in enumerate(
-                    zip(self._title.split("\n"), self._line_bboxes)
-                )
-            ]
+        tspans = [
+            svg.TSpan(
+                x=align_center(bbox),
+                y=0.5 * (self.bounds.size.height - self.text_size.height)
+                + i * self._line_height,
+                text=x,
+            )
+            for i, (x, bbox) in enumerate(
+                zip(self._title.split("\n"), self._line_bboxes)
+            )
+        ]
+        return svg.SVG(
+            x=self.bounds.origin.x,
+            y=self.bounds.origin.y,
+            overflow="visible",
+            elements=[  # type: ignore
+                svg.Rect(
+                    width=self.bounds.size.width,
+                    height=self.bounds.size.height,
+                    fill="white",
+                    stroke="black",
+                    class_=["block"],
+                ),
+                svg.Text(
+                    font_size=self._font_size,
+                    font_family=self.font_family,
+                    font_weight="normal",
+                    elements=tspans,  # type: ignore
+                ),
+            ],
         )
-        return f"""
-        <svg
-            x="{self.bounds.origin.x}" 
-            y="{self.bounds.origin.y}"
-            overflow="visible">
-            <rect
-                width="{self.bounds.size.width}" 
-                height="{self.bounds.size.height}"
-                fill="white"
-                stroke="black"/>
-            <text 
-                font-size="{self._font_size}"
-                font-family="{self._font_family}"
-                font-weight="normal">
-                {text_spans}
-            </text>
-        </svg>
-        """

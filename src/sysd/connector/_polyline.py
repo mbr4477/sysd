@@ -1,6 +1,7 @@
+import svg
+
 from sysd.point import Point
 
-from ..render_output import RenderOutput
 from ._connector import Connector
 
 
@@ -15,15 +16,17 @@ class PolyLine(Connector):
         super().__init__(source, dest)
         self._joints = joints
 
-    def render(self) -> RenderOutput:
-        return self._SVG.format(
-            src_x=self._source.x,
-            src_y=self._source.y,
-            joints=(
-                ""
-                if not self._joints
-                else "".join([f"L{x.x},{x.y}" for x in self._joints])
-            ),
-            dst_x=self._dest.x,
-            dst_y=self._dest.y,
+    def render(self) -> svg.SVG:
+        return svg.SVG(
+            elements=[
+                svg.Path(
+                    stroke="black",
+                    fill="none",
+                    d=[
+                        svg.M(self._source.x, self._source.y),
+                        *[svg.L(x.x, x.y) for x in self._joints],
+                        svg.L(self._dest.x, self._dest.y),
+                    ],
+                )
+            ],
         )

@@ -5,4 +5,5 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "sysd"
 version = "0.0.1"
-dependencies = ["fonttools", "Pillow", "typing_extensions"]
+requires-python = ">=3.8"
+dependencies = ["fonttools", "Pillow", "typing_extensions", "svg.py"]

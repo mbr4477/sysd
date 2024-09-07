@@ -1,6 +1,7 @@
 from typing import Iterable, List, Optional, TypeVar
 
-from .render_output import RenderOutput
+import svg
+
 from .renderable import Renderable
 
 _T = TypeVar("_T", bound=Renderable)
@@ -20,8 +21,8 @@ class Diagram(Renderable):
         self._renderables.append(renderable)
         return renderable
 
-    def render(self) -> RenderOutput:
-        out = '<svg xmlns="http://www.w3.org/2000/svg">'
-        out += "".join(x.render() for x in self._renderables)
-        out += "</svg>"
-        return out
+    def render(self) -> svg.SVG:
+        return svg.SVG(
+            xmlns="http://www.w3.org/2000/svg",
+            elements=[x.render() for x in self._renderables],
+        )

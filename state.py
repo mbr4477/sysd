@@ -1,9 +1,9 @@
 import logging
-import re
+
+import svg
 
 from sysd.connectable import Connectable
 from sysd.dsl import diagram
-from sysd.render_output import RenderOutput
 from sysd.symbol import Box, Diamond
 
 logging.basicConfig()
@@ -12,15 +12,11 @@ _logger.setLevel(logging.DEBUG)
 
 
 class State(Box):
-    def render(self) -> RenderOutput:
+    def render(self) -> svg.SVG:
         out = super().render()
-        result = re.search(r"<rect((?:.|\n)*)\/>", out, re.MULTILINE)
-        if result is not None:
-            out = (
-                out[: result.start()]
-                + f'<rect {result.groups(1)[0]} rx="10" />'
-                + out[result.end() :]
-            )
+        assert out.elements and isinstance(out.elements[0], svg.Rect)
+        rect = out.elements[0]
+        rect.rx = 10
         return out
 
 
@@ -31,14 +27,16 @@ class InitialState(Connectable):
         self.bounds.size.width = 2 * self._radius
         self.bounds.size.height = 2 * self._radius
 
-    def render(self) -> RenderOutput:
-        return (
-            "<svg"
-            f' x="{self.bounds.origin.x}"'
-            f' y="{self.bounds.origin.y}"'
-            ' overflow="visible">'
-            f' <circle cx="{self._radius}" cy="{self._radius}" r="{self._radius}" fill="black"/>'
-            "</svg>"
+    def render(self) -> svg.SVG:
+        return svg.SVG(
+            x=self.bounds.origin.x,
+            y=self.bounds.origin.y,
+            overflow="visible",
+            elements=[
+                svg.Circle(
+                    cx=self._radius, cy=self._radius, r=self._radius, fill="black"
+                )
+            ],
         )
 
 
@@ -49,15 +47,27 @@ class FinalState(Connectable):
         self.bounds.size.width = 2 * self._radius
         self.bounds.size.height = 2 * self._radius
 
-    def render(self) -> RenderOutput:
-        return (
-            "<svg"
-            f' x="{self.bounds.origin.x}"'
-            f' y="{self.bounds.origin.y}"'
-            ' overflow="visible">'
-            f' <circle cx="{self._radius}" cy="{self._radius}" r="{self._radius}" fill="none" stroke="black" />'
-            f' <circle cx="{self._radius}" cy="{self._radius}" r="{self._radius*0.6}" fill="black"/>'
-            "</svg>"
+    def render(self) -> svg.SVG:
+        return svg.SVG(
+            x=self.bounds.origin.x,
+            y=self.bounds.origin.y,
+            overflow="visible",
+            elements=[
+                svg.Circle(
+                    cx=self._radius,
+                    cy=self._radius,
+                    r=self._radius,
+                    fill="none",
+                    stroke="black",
+                ),
+                svg.Circle(
+                    cx=self._radius,
+                    cy=self._radius,
+                    r=self._radius * 0.6,
+                    fill="black",
+                    stroke="none",
+                ),
+            ],
         )
 
 

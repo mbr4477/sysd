@@ -14,5 +14,4 @@ from .constraint import (
 from .diagram import Diagram
 from .font import FontBook
 from .point import Point
-from .render_output import RenderOutput
 from .renderable import Renderable

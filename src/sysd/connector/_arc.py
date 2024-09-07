@@ -1,8 +1,8 @@
-
 import math
 
+import svg
+
 from ..point import Point
-from ..render_output import RenderOutput
 from ._connector import Connector
 
 
@@ -27,20 +27,26 @@ class Arc(Connector):
         self._curvature = curvature
         self._clockwise = clockwise
 
-    def render(self) -> RenderOutput:
-        params = dict(
-            ax=self._source.x, ay=self._source.y, bx=self._dest.x, by=self._dest.y
-        )
-        path = Arc._LINE_PATH.format(**params)
+    def render(self) -> svg.SVG:
+        path_data = [
+            svg.M(self._source.x, self._source.y),
+            svg.L(self._dest.x, self._dest.y),
+        ]
         if self._curvature > 0.0 and self._curvature <= 1.0:
             dx = self._dest.x - self._source.x
             dy = self._dest.y - self._source.y
             min_radius = 0.5 * math.sqrt(dx * dx + dy * dy)
             radius = min_radius / self._curvature
-            path = Arc._ARC_PATH.format(
-                **params,
-                rx=radius,
-                ry=radius,
-                clockwise=self._clockwise,
-            )
-        return Arc._SVG.format(path=path)
+            path_data = [
+                svg.M(self._source.x, self._source.y),
+                svg.a(
+                    radius,
+                    radius,
+                    0,
+                    False,
+                    self._clockwise,
+                    self._dest.x,
+                    self._dest.y,
+                ),
+            ]
+        return svg.SVG(elements=[svg.Path(d=path_data, stroke="black", fill="none")])
