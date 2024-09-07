@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .connector import Elbow, Line
 from .constraint import Below, CenterHorizontal, CenterVertical, RightOf
 from .diagram import Diagram
@@ -61,9 +63,10 @@ def elbow(
     start_arrow: bool = False,
     end_arrow: bool = False,
     flip: bool = False,
+    radius: Optional[float] = None,
 ):
     global sysd_diagram
-    sysd_diagram.add(Elbow(source, dest, start_arrow, end_arrow, flip))
+    sysd_diagram.add(Elbow(source, dest, start_arrow, end_arrow, flip, radius))
 
 
 def endd():

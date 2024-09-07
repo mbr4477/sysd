@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sysd.point import Point
 
 from ._polyline import PolyLine
@@ -11,6 +13,7 @@ class Elbow(PolyLine):
         start_arrow: bool = False,
         end_arrow: bool = False,
         flip: bool = False,
+        radius: Optional[float] = None,
     ):
         super().__init__(
             source,
@@ -18,4 +21,5 @@ class Elbow(PolyLine):
             Point(source.x, dest.y) if flip else Point(dest.x, source.y),
             start_arrow=start_arrow,
             end_arrow=end_arrow,
+            radius=radius,
         )
