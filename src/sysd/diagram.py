@@ -2,7 +2,7 @@ from typing import Iterable, List, Optional, TypeVar
 
 import svg
 
-from .renderable import Renderable
+from sysd.core.renderable import Renderable
 
 _T = TypeVar("_T", bound=Renderable)
 

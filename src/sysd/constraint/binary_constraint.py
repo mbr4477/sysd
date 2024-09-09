@@ -1,5 +1,6 @@
-from ..renderable import Renderable
-from ._constraint import Constraint
+from sysd.core import Renderable
+
+from .constraint import Constraint
 
 
 class BinaryConstraint(Constraint):

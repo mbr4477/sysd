@@ -1,4 +1,4 @@
-from ._offset_constraint import OffsetConstraint
+from .offset_constraint import OffsetConstraint
 
 
 class Below(OffsetConstraint):

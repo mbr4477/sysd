@@ -1,10 +1,10 @@
 from typing import Optional
 
-from .connector import Elbow, Line
+from .connector import Elbow, PolyLine
 from .constraint import Below, CenterHorizontal, CenterVertical, RightOf
+from .core.point import Point
+from .core.renderable import Renderable
 from .diagram import Diagram
-from .point import Point
-from .renderable import Renderable
 from .symbol import Box, Diamond
 
 _sysd_diagram = Diagram()
@@ -15,7 +15,7 @@ def diagram() -> Diagram:
     return _sysd_diagram
 
 
-def startd(title: str):
+def start_sysd(title: str):
     global _sysd_diagram
     _sysd_diagram = Diagram(title)
 
@@ -54,7 +54,9 @@ def line(
     source: Point, dest: Point, start_arrow: bool = False, end_arrow: bool = False
 ):
     global _sysd_diagram
-    _sysd_diagram.add(Line(source, dest, start_arrow, end_arrow))
+    _sysd_diagram.add(
+        PolyLine(source, dest, start_arrow=start_arrow, end_arrow=end_arrow)
+    )
 
 
 def elbow(
@@ -74,6 +76,6 @@ def add(x: Renderable) -> Renderable:
     return _sysd_diagram.add(x)
 
 
-def endd():
+def end_sysd():
     global _sysd_diagram
     print(_sysd_diagram.render())

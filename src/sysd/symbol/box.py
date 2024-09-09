@@ -2,11 +2,11 @@ from typing import List
 
 import svg
 
-from ..bounding_box import BoundingBox
-from ..connectable import Connectable
-from ..font import FontBook
-from ..size import Size
-from ..text_align import Align
+from sysd.core.bounding_box import BoundingBox
+from sysd.core.connectable import Connectable
+from sysd.core.font import FontBook
+from sysd.core.size import Size
+from sysd.core.text_align import Align
 
 
 class Box(Connectable):

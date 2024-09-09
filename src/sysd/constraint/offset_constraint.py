@@ -1,5 +1,6 @@
-from ..renderable import Renderable
-from ._binary_constraint import BinaryConstraint
+from sysd.core import Renderable
+
+from .binary_constraint import BinaryConstraint
 
 
 class OffsetConstraint(BinaryConstraint):

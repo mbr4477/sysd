@@ -1,4 +1,4 @@
-from ..renderable import Renderable
+from sysd.core import Renderable
 
 
 class Constraint:

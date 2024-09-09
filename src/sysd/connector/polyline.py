@@ -3,9 +3,9 @@ from typing import List, Optional
 
 import svg
 
-from sysd.point import Point
+from sysd.core import Point
 
-from ._connector import Connector
+from .connector import Connector
 
 
 class PolyLine(Connector):
@@ -16,11 +16,15 @@ class PolyLine(Connector):
         *joints: Point,
         start_arrow: bool = False,
         end_arrow: bool = False,
-        radius: Optional[float] = None
+        radius: Optional[float] = None,
     ):
         super().__init__(source, dest, start_arrow, end_arrow)
         self._joints = joints
         self._radius = radius
+
+    @property
+    def points(self) -> List[Point]:
+        return [self._source] + list(self._joints) + [self._dest]
 
     def render(self) -> svg.SVG:
         arrows: List[svg.Path] = []

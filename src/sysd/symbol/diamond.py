@@ -1,5 +1,6 @@
-from ..connectable import Connectable
 import svg
+
+from sysd.core.connectable import Connectable
 
 
 class Diamond(Connectable):

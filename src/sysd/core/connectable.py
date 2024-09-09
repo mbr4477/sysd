@@ -1,11 +1,11 @@
-from typing import List, Sequence
+from typing import List
 
 from .point import Point
 from .renderable import Renderable
 
 
 class Connectable(Renderable):
-    local_ports: Sequence[Point] = [
+    local_ports: List[Point] = [
         Point(0.5, 0.0),
         Point(1.0, 0.5),
         Point(0.5, 1.0),

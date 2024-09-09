@@ -2,8 +2,7 @@ import math
 
 import svg
 
-from ..point import Point
-from ..renderable import Renderable
+from sysd.core import Point, Renderable
 
 
 class Connector(Renderable):

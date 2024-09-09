@@ -1,8 +1,8 @@
 from typing import Optional
 
-from sysd.point import Point
+from sysd.core import Point
 
-from ._polyline import PolyLine
+from .polyline import PolyLine
 
 
 class Elbow(PolyLine):
