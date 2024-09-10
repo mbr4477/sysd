@@ -1,7 +1,9 @@
 # pyright: reportUnusedExpression=false
 import sysd.sysml.state_machine as stm
 from sysd.core import FontBook
+from sysd.core.anchor import Anchor
 from sysd.dsl import (
+    add,
     align_center,
     align_middle,
     end_sysd,
@@ -11,7 +13,6 @@ from sysd.dsl import (
 )
 
 FontBook.init()
-FontBook.default().default_family = "Arial"
 
 start_sysd("sm Test")
 start = stm.initial_state()

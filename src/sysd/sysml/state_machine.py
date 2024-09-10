@@ -59,6 +59,7 @@ class State(Box):
     def __init__(self, title: str):
         super().__init__(title)
         self.bounds.size.width = 100
+        self.label.bounds.origin.x = 50
 
     def render(self) -> svg.SVG:
         out = super().render()
